@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import Exercises from './pages/Exercises';
+import App from './components/App';
 
 ReactDOM.render(
-  <Exercises />,
+  <App />,
   document.getElementById('root')
 );
