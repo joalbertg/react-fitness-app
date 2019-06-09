@@ -1,22 +1,30 @@
 import React from 'react';
 
 import Welcome from '../components/Welcome';
-import Card from '../components/Card';
+import ExerciseList from '../components/ExerciseList';
+import AddExercise from '../components/AddExercise';
 
-// assets
-import exerciseImg from '../images/exercise.png';
+// info faker
+import exerciseData from '../faker/exercises.json';
 
-const Exercises = () => (
-  <>
-    <Welcome username='Joalbert'/>
-    <Card
-      title='Technique Guides'
-      description='Learn amazing street workout and calisthenics'
-      img={exerciseImg}
-      leftColor='#A74CF2'
-      rightColor='#617BFB'
-    />
-  </>
-)
+class Exercises extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      exerciseData
+    }
+  }
+  render = () => (
+    <>
+      <Welcome
+        username='Joalbert'
+      />
+      <ExerciseList
+        exerciseData={this.state.exerciseData}
+      />
+      <AddExercise />
+    </>
+  )
+}
 
 export default Exercises;
