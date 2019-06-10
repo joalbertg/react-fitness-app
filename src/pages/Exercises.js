@@ -3,6 +3,8 @@ import React from 'react';
 import Welcome from '../components/Welcome';
 import ExerciseList from '../components/ExerciseList';
 import AddExercise from '../components/AddExercise';
+import Loading from '../components/Loading';
+import FatalError from './500';
 
 // info faker
 // import exerciseData from '../faker/exercises.json';
@@ -17,7 +19,11 @@ class Exercises extends React.Component {
 
   // by Babel, without constructor method
   // state = { exerciseData }
-  state = { exerciseData: [], error: false }
+  state = {
+    exerciseData: [],
+    error: false,
+    loading: true
+  }
 
   componentDidMount = async () => {
     await this.fetchExercises()
@@ -27,31 +33,30 @@ class Exercises extends React.Component {
     try {
       let res = await fetch('http://localhost:8000/api/exercises');
       this.setState({
-        exerciseData: await res.json()
+        exerciseData: await res.json(),
+        loading: false
       })
     } catch(error) {
       this.setState({
-        error: true
+        error: true,
+        loading: false
       })
     }
   }
 
-  render = () => {
-    return (
-    this.state.error ?
-      <h1>Server Error!</h1>
+  render = () => (
+    this.state.loading ?
+      <Loading />
     :
-      <>
-        <Welcome
-          username='Joalbert'
-        />
-        <ExerciseList
-          exerciseData={this.state.exerciseData}
-        />
-        <AddExercise />
-      </>
-    )
-  }
+      this.state.error ?
+        <FatalError />
+      :
+        <>
+          <Welcome username='Joalbert' />
+          <ExerciseList exerciseData={this.state.exerciseData} />
+          <AddExercise />
+        </>
+  )
 }
 
 export default Exercises;
