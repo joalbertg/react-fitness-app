@@ -5,18 +5,11 @@ import Card from './Card';
 const ExerciseList = ({exerciseData}) => (
   <>
     {
-      exerciseData.map((exercise, index) => {
-        const {title, description, img, leftColor, rightColor} = exercise
-        return (
-          <Card
-            key={index}
-            title={title}
-            description={description}
-            img={img}
-            leftColor={leftColor}
-            rightColor={rightColor}
-          />
-        )}
+      exerciseData.map((exercise, index) =>
+        <Card
+          key={index}
+          {...exercise}
+        />
       )
     }
   </>
