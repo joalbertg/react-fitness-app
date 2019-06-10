@@ -8,12 +8,15 @@ import AddExercise from '../components/AddExercise';
 import exerciseData from '../faker/exercises.json';
 
 class Exercises extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      exerciseData
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     exerciseData
+  //   }
+  // }
+
+  // by Babel, without constructor method
+  state = { exerciseData }
   render = () => (
     <>
       <Welcome
