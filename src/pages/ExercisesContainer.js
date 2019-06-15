@@ -9,7 +9,7 @@ import FatalError from './500';
 // import exerciseData from '../faker/exercises.json';
 
 const ExercisesContainer = () => {
-  const { data, loading, error } = useFetch('http://localhost:8000/api/exercises');
+  const { data, loading, error } = useFetch('/exercises');
   return (
     loading ?
       <Loading />

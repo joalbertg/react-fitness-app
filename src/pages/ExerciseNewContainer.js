@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 
+import api from '../config/api';
 import ExerciseNew from './ExerciseNew';
 import Loading from '../components/Loading';
 import FatalError from './500';
@@ -35,29 +36,21 @@ const ExerciseNewContainer = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      let config = {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(state.form)
-      }
-
-      await fetch('http://localhost:8000/api/exercises', config);
+    await api.post('/exercises', state.form).then(res => {
+      console.log(res);
       setState({
         ...state,
         loading: false
       });
       props.history.push('/exercise');
-    } catch(error) {
+    }).catch(error => {
+      console.error(error);
       setState({
         ...state,
         loading: false,
         error: true
       });
-    }
+    });
   }
 
   return (
