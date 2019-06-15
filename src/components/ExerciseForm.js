@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { leftColor as DefaultLC, rightColor as DefaultRC} from '../consts/exercise';
+
 const ExerciseForm = ({ onChange, onSubmit, form }) => (
   <div className="container">
     <form 
@@ -38,22 +40,22 @@ const ExerciseForm = ({ onChange, onSubmit, form }) => (
       <div className="form-row">
         <div className="col">
           <input 
-            type="text" 
+            type="color"
             className="form-control" 
             placeholder="leftColor" 
             name="leftColor"
             onChange={onChange}
-            value={form.leftColor}
+            value={form.leftColor || DefaultLC}
           />
         </div>
         <div className="col">
-          <input 
-            type="text" 
+          <input
+            type="color"
             className="form-control"
             placeholder="rightColor" 
             name="rightColor"
             onChange={onChange}
-            value={form.rightColor}
+            value={form.rightColor || DefaultRC}
           />    
         </div>
       </div>

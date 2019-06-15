@@ -1,8 +1,9 @@
 import React from 'react';
 
 // assets
+import { leftColor as DefaultLC, rightColor as DefaultRC } from '../consts/exercise';
 import circlesImg from '../images/circles.png';
-import emptyImg from '../images/empty.png'
+import emptyImg from '../images/empty.png';
 import './styles/Card.css';
 
 // class Card extends React.Component {
@@ -37,7 +38,7 @@ import './styles/Card.css';
 const Card = ({title, description, img, leftColor, rightColor}) => (
   <div className="card mx-auto Fitness-Card"
     style={{
-      backgroundImage: `url(${circlesImg}), linear-gradient(to right, ${leftColor || '#56CCF2'}, ${rightColor || '#2F80ED'})`,
+      backgroundImage: `url(${circlesImg}), linear-gradient(to right, ${leftColor || DefaultLC}, ${rightColor || DefaultRC})`,
     }}
   >
     <div className="card-body">
