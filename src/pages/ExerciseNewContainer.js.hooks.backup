@@ -16,20 +16,14 @@ const ExerciseNewContainer = (props) => {
     rightColor: ""
   }
 
-  const stateInit = {
-    loading: false,
-    error: false
-  }
-
-  const [state, setState] = useState({form: {...obj}, ...stateInit});
+  const [form, setForm] = useState({...obj});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      form: {
-        ...state.form,
-        [event.target.name]: event.target.value
-      } 
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value
     });
   }
 
@@ -42,33 +36,28 @@ const ExerciseNewContainer = (props) => {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(state.form)
+        body: JSON.stringify(form)
       }
 
       await fetch('http://localhost:8000/api/exercises', config);
-      setState({
-        ...state,
-        loading: false
-      });
+      setLoading(false);
+
       props.history.push('/exercise');
     } catch(error) {
-      setState({
-        ...state,
-        loading: false,
-        error: true
-      });
+      setLoading(false);
+      setError(true);
     }
   }
 
   return (
-    state.loading ?
+    loading ?
       <Loading />
     :
-      state.error ?
+      error ?
         <FatalError />
       :
         <ExerciseNew
-          form={state.form}
+          form={form}
           onChange={handleChange}
           onSubmit={handleSubmit}
         />
