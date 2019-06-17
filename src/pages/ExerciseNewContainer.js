@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import api from '../config/api';
+import asyncPost from '../httpClient/asyncPost';
 import ExerciseNew from './ExerciseNew';
 import Loading from '../components/Loading';
 import FatalError from './500';
@@ -8,7 +8,7 @@ import FatalError from './500';
 // assets
 import '../components/styles/ExerciseNew.css';
 
-const ExerciseNewContainer = (props) => {
+const ExerciseNewContainer = props => {
   const obj = {
     title: "",
     description: "",
@@ -22,7 +22,7 @@ const ExerciseNewContainer = (props) => {
     error: false
   }
 
-  const [state, setState] = useState({form: {...obj}, ...stateInit});
+  const [state, setState] = useState({ form: { ...obj }, ...stateInit });
 
   const handleChange = (event) => {
     setState({
@@ -36,21 +36,16 @@ const ExerciseNewContainer = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await api.post('/exercises', state.form).then(res => {
-      console.log(res);
-      setState({
-        ...state,
-        loading: false
-      });
-      props.history.push('/exercise');
-    }).catch(error => {
-      console.error(error);
-      setState({
-        ...state,
-        loading: false,
-        error: true
-      });
+    const { loading, error } = await asyncPost('/exercises', state.form);
+    setState({
+      ...state,
+      loading: loading,
+      error: error
     });
+
+    if(!error) {
+      props.history.push('/exercise');
+    }
   }
 
   return (

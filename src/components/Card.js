@@ -53,6 +53,6 @@ const Card = ({title, description, img, leftColor, rightColor}) => (
       </div>
     </div>
   </div>
-)
+);
 
 export default Card;

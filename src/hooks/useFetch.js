@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import api from '../config/api';
+import asyncGet from '../httpClient/asyncGet';
 
 const useFetch = url => {
   const [loading, setLoading] = useState(true);
@@ -8,17 +8,15 @@ const useFetch = url => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const fetchResources = async () => {
-      await api.get(url).then(res => {
-        setLoading(false);
-        setData(res.data);
-      }).catch(error => {
-        console.error(error);
-        setLoading(false);
-        setError(true);
+    const searchData = async () => {
+      await asyncGet(url).then(res => {
+        const { data, loading, error } =   res;
+        setLoading(loading);
+        setError(error);
+        setData(data);
       });
     }
-    fetchResources();
+    searchData();
   }, [url]);
 
   return { data, loading, error };
